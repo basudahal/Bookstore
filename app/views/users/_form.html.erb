@@ -1,0 +1,45 @@
+<%= form_for(@user) do |f| %>
+  <%= render "shared/errors", object: @user %>
+
+  <table>
+    <tr>
+        <th>
+          <%= f.label :name %>
+        </th>
+        <td>
+          <%= f.text_field :name, size: 40, autofocus: true %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+          <%= f.label :email %>
+        </th>
+        <td>
+          <%= f.email_field :email, size: 40 %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+          <%= f.label :password %>
+        </th>
+        <td>
+          <%= f.password_field :password, size: 40 %>
+        </td>
+    </tr>
+    <tr>
+        <th>
+          <%= f.label :password_confirmation, "Confirm Password" %>
+        </th>
+        <td>
+          <%= f.password_field :password_confirmation, size: 40 %>
+        </td>
+    </tr>
+  </table>
+    <p>
+      <% if @user.new_record? %>
+        <%= f.submit "Create Account" %>
+      <% else %>
+        <%= f.submit "Update Account" %>
+      <% end %>
+    </p>
+<% end %>

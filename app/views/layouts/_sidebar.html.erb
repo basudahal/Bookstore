@@ -1,0 +1,15 @@
+    <aside id="sidebar">
+        <nav>
+          <ul>
+              <li>
+                <%= link_to 'All Books', books_path %>
+              </li>
+              <% if current_user_admin? %>
+              <li>
+                <%= link_to 'Add New Book', new_book_path %>
+              </li>
+              <% end %>
+          </ul>
+        </nav>
+        <%= content_for(:side) %>
+    </aside>

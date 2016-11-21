@@ -1,0 +1,17 @@
+<%= form_for([@book, @review]) do |f| %>
+ <%= render "shared/errors", object: @review %>
+  <table class="table">
+    <tr>
+      <th><%= f.label :stars %></th>
+      <td><%= f.select :stars, Review::STARS, prompt: "Pick one" %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :comment %></th>
+      <td><%= f.text_area :comment, cols: 40, placeholder: "What did you think?"%></td>
+    </tr>
+  </table>
+    <p>
+      <%= f.submit 'Post Review', class: 'btn btn-default btn-sm' %>
+      <%= link_to "Cancel", @book, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>

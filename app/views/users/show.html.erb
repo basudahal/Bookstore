@@ -1,0 +1,49 @@
+<% content_for(:title, @user.name)%>
+<article id="user">
+  <header>
+	    <h1><%= @user.name %></h1>
+	    <h2><%= mail_to(@user.email) %></h2>
+  </header>
+  <div class="container">
+ <% if @reviews.any? %>
+  <h3>Reviews</h3>
+  <ol id="reviews">
+   <% @reviews.each do |review| %>
+     <li>
+       <%= link_to review.book.name, review.book %>
+       <span class="review"><%= pluralize(review.stars, 'star') %></span>
+       <span class="date"><%= time_ago_in_words(review.created_at) %> ago</span>
+       <p>
+         &quot;<%= review.comment %>&quot;
+       </p>
+     </li>
+   <% end %>
+  </ol>
+<% end %>
+  </div>
+  <footer>
+	  <nav>
+	  <% if current_user?(@user) %>
+	    <%= link_to 'Edit Account', edit_user_path(@user), class: 'btn btn-default btn-sm' %> 
+	    <% end %> 
+	    <% if current_user_admin? %>  
+	    <%= link_to 'Delete Account', @user,
+	                method: :delete,
+	                data: { confirm: 'Are you sure you want to permanently delete your account?' },
+	                class: 'btn btn-default btn-sm' %>
+	   <% end %>
+	  </nav>
+</footer>
+</article>
+<% content_for :side do %>
+	<% if @favorite_books.any? %>
+	  <h4>Favorite Books</h4>
+	  <ul>
+	   <% @favorite_books.each do |book| %>
+	     <li>
+	       <%= link_to book.name, book %>
+	     </li>
+	   <% end %>
+	  </ul>
+	<% end %>
+<% end %>

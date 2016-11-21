@@ -1,0 +1,38 @@
+<div class="container">
+	<% @books.each do |book| %>
+	<article>
+		<header>
+			<%= image_for(book)%>
+			<h2><%= link_to(book.name, book_path(book)) %></h2>
+			<h3><%=book.condition%> || <%=book.book_cover%> || 
+			<%=book.num_pages%> Pages || <%=book.isbn %></h3>
+		</header>
+		<p>
+			<%= truncate(book.description, length: 40, separator: '')%>
+		</p>
+		<table class="table table-responsive">
+			<tr>
+				<th>Publisher</th>
+				<td><%=book.publisher%></td>
+			</tr>
+			<tr>
+				<th>Author</th>
+				<td><%=book.author%></td>
+			</tr>
+			<tr>
+				<th>Year Published</th>
+				<td><%=book.publish_year.year%></td>
+			</tr>
+			<tr>
+				<th>Ratings</th>
+				<td><%=book.rating%></td>
+			</tr>
+			<tr>
+				<th>Price</th>
+				<td><%=format_total_gross(book)%></td>
+			</tr>
+		</table>
+	</article>
+	<hr/>
+	<% end %>
+</div>

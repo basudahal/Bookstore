@@ -1,0 +1,26 @@
+<header>
+	<h2>Sign In</h2>
+</header>
+<%= form_tag(session_path) do %>
+  <table class="table">
+    <tr>
+      <th>
+        <%= label_tag :email %>
+      </th>
+      <td>
+        <%= email_field_tag :email, nil, autofocus: true %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= label_tag :password %>
+      </th>
+      <td>
+        <%= password_field_tag :password, nil %>
+      </td>
+    </tr>
+  </table>
+    <p>
+      <%= submit_tag 'Sign In' %>
+    </p>
+<% end %>

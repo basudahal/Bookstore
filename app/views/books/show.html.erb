@@ -1,0 +1,151 @@
+<% content_for(:title, @book.name)%>
+<div class="container">
+  <header id="page_header">
+    <h2><%= @book.name %></h2>
+    <h5><%= @book.condition %></h5>
+  </header>
+<div class="container container-fluid body-content">
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Description</h4>
+     </div>   
+     <div class = "panel-body">
+          <%= @book.description %>
+          <div class="box">
+          <%= pluralize(@fans.size, '  like')%>
+          <% if current_user %>
+            <% if @current_favorite %>
+              <%= button_to "Unlike", book_favorite_path(@book, @current_favorite), method: :delete %>
+            <% else %>  
+              <%= button_to "Like", book_favorites_path(@book) %>
+            <% end %>
+          <% end %>          
+          </div>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Publisher</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= @book.publisher %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Author</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= @book.author %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>ISBN</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= @book.isbn %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Rating</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= @book.rating %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Year Published</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= @book.publish_year.year %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Price</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= format_total_gross(@book) %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Book Cover</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= @book.book_cover %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Average Review</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= format_average_stars(@book) %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>No of Pages</h4>
+     </div>
+     
+     <div class = "panel-body">
+        <%= @book.num_pages %>
+     </div>
+  </div>
+  <div class = "panel panel-default">
+     <div class = "panel-heading">
+        <h4>Image</h4>
+     </div>
+     
+     <div class = "panel-body">
+          Image File: <%= @book.image_file_name %> <br/>
+          <%= image_for(@book) %>
+     </div>
+  </div>
+</div>
+<footer>
+ <p>             
+<%= link_to pluralize(@book.reviews.size, "review"), 
+            book_reviews_path(@book) %></p>
+  <%= link_to "Write Review", new_book_review_path(@book),
+             class: 'btn btn-default btn-sm' %> 
+	<%= link_to "All Books", root_path, class: 'btn btn-default btn-sm' %> 
+  <% if current_user_admin? %> 
+	<%= link_to "Edit", edit_book_path(@book), class: 'btn btn-default btn-sm' %>  
+	<%= link_to "Add New", new_book_path, class: 'btn btn-default btn-sm'  %>  
+	<%= link_to "Delete", book_path(@book), 
+	method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default btn-sm'  %>
+  <% end %>
+  <p></p>
+</footer>
+</div>
+    <% content_for :side do %>
+        <% if @fans.any? %>
+          <h4>Likes</h4>
+          <ul>
+            <% @fans.each do |user| %>
+              <li>
+                <%= link_to user.name, user %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      <h4>Genres</h4>
+        <ul>
+        <% @genres.each do |genre| %>
+            <li><%= genre.name %></li>
+        <% end %>
+        </ul>
+    <% end %>

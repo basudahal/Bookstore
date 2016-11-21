@@ -1,0 +1,63 @@
+<div>
+    <%= form_for(@book) do |f| %>
+    <%= render "shared/errors", object: @book %>
+    <fieldset>
+        <p>
+          <%= f.label :name %><br/>
+          <%= f.text_field :name, autofocus: true %>
+        </p>
+        <p>
+          <%= f.label :condition %><br/>
+          <%= f.text_field :condition %>
+        </p>
+        <p>
+        	<%=f.label :description%><br/>
+          <%= f.text_area :description, cols: 40, rows: 7 %>
+        </p>
+        <p>
+          <%=f.label :publisher %><br/>
+          <%= f.text_field :publisher %>
+        </p>
+        <p>
+        	<%=f.label :author %><br/>
+          <%= f.text_field :author %>
+        </p>
+        <p>
+        	<%=f.label :isbn%><br/>
+          <%= f.text_field :isbn %>
+        </p>
+        <p>
+          <%=f.label :rating%><br/>
+          <%= f.text_field :rating %>
+        </p>
+        <p>
+          <%=f.label :publish_year %><br/>
+          <%= f.text_field :publish_year %>
+        </p>
+        <p>
+          <%=f.label :price %><br/>
+          <%= f.text_field :price %>
+        </p>
+        <p>
+          <%=f.label :book_cover %><br/>
+          <%= f.text_field :book_cover %>
+        </p>
+        <p>
+          <%=f.label :num_pages %><br/>
+          <%= f.text_field :num_pages %>
+        </p>
+        <p>
+          <%=f.label :image_file_name %><br/>
+          <%= f.text_field :image_file_name %>
+        </p>
+        <p class="checkbox-list">
+          <%=f.label 'Genre' %><br/>
+          <%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name, {:item_wrapper_class => 'checkbox_container'}  %>
+        </p>
+        <p>
+          <%= f.submit class: "btn btn-default btn-sm" %> 
+          <%= link_to("Cancel", books_path, class: "btn btn-default btn-sm")%>
+        </p>
+      </fieldset>
+    <% end %>
+</div>
